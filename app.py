@@ -31,8 +31,8 @@ def load_data():
         'family': {
             'papa': {'name': 'パパ', 'info': '会社員'},
             'mama': {'name': 'ママ', 'info': '平日勤務'},
-            'sister': {'name': 'さくら', 'birthday': '2023-04-10', 'info': '保育園'},
-            'brother': {'name': 'はると', 'birthday': '2025-06-15', 'info': ''},
+            'sister': {'name': '第一子', 'birthday': '2023-04-10', 'info': '保育園'},
+            'brother': {'name': '第二子', 'birthday': '2025-06-15', 'info': ''},
         },
         'conditions': {
             'budget': '',
@@ -42,8 +42,8 @@ def load_data():
             'weekend_available': '',
         },
         'lessons': [
-            {'id': 'A1', 'name': 'イクウェル', 'school': '', 'address': '', 'who': 'お姉ちゃん', 'day': '', 'start': '', 'end': '', 'fee': '', 'status': '継続確定', 'memo': ''},
-            {'id': 'A2', 'name': 'イクウェル', 'school': '', 'address': '', 'who': '弟くん', 'day': '', 'start': '', 'end': '', 'fee': '', 'status': '継続確定', 'memo': ''},
+            {'id': 'A1', 'name': '幼児教室', 'school': '', 'address': '', 'who': 'お姉ちゃん', 'day': '', 'start': '', 'end': '', 'fee': '', 'status': '継続確定', 'memo': ''},
+            {'id': 'A2', 'name': '幼児教室', 'school': '', 'address': '', 'who': '弟くん', 'day': '', 'start': '', 'end': '', 'fee': '', 'status': '継続確定', 'memo': ''},
             {'id': 'B1', 'name': 'スイミング', 'school': '', 'address': '', 'who': 'お姉ちゃん', 'day': '', 'start': '', 'end': '', 'fee': '', 'status': '継続確定', 'memo': ''},
             {'id': 'B2', 'name': 'スイミング（ベビー）', 'school': '', 'address': '', 'who': '弟くん', 'day': '', 'start': '', 'end': '', 'fee': '', 'status': '検討中', 'memo': '1歳〜が多い'},
             {'id': 'C1', 'name': 'ピアノ', 'school': '', 'address': '', 'who': 'お姉ちゃん', 'day': '', 'start': '', 'end': '', 'fee': '', 'status': '検討中', 'memo': '3歳〜が目安'},
@@ -991,7 +991,7 @@ function showTab(name) {
 function getLessonClass(name) {
   if (!name) return 'other';
   const n = name.toLowerCase();
-  if (n.includes('イクウェル') || n.includes('いくうぇる') || n.includes('eqwel')) return 'eqwel';
+  if (n.includes('幼児教室') || n.includes('いくうぇる') || n.includes('eqwel')) return 'eqwel';
   if (n.includes('スイミング') || n.includes('水泳') || n.includes('swim')) return 'swimming';
   if (n.includes('ピアノ') || n.includes('piano')) return 'piano';
   return 'other';
@@ -999,7 +999,7 @@ function getLessonClass(name) {
 
 // =========== ID Auto-Generation ===========
 const CATEGORY_MAP = [
-  { pattern: 'イクウェル', letter: 'A' },
+  { pattern: '幼児教室', letter: 'A' },
   { pattern: 'スイミング', letter: 'B' },
   { pattern: '水泳',       letter: 'B' },
   { pattern: 'ピアノ',     letter: 'C' },
@@ -1256,7 +1256,7 @@ function renderLessons() {
     const lesson = appData.lessons[idx];
     html += `<tr>
       <td><input value="${escHtml(lesson.id)}" onchange="updateLesson(${idx},'id',this.value)" placeholder="自動" style="font-weight:700;color:var(--accent);font-size:0.82rem;" title="対象と習い事名から自動生成。手動入力で上書き可能。"></td>
-      <td><input value="${escHtml(lesson.name)}" onchange="updateLesson(${idx},'name',this.value)" placeholder="イクウェル"></td>
+      <td><input value="${escHtml(lesson.name)}" onchange="updateLesson(${idx},'name',this.value)" placeholder="幼児教室"></td>
       <td><input value="${escHtml(lesson.school)}" onchange="updateLesson(${idx},'school',this.value)" placeholder="○○教室"></td>
       <td><select onchange="updateLesson(${idx},'who',this.value)">
             <option value="">-</option>
@@ -1568,7 +1568,7 @@ function renderPatterns() {
   filteredLessons.sort((a, b) => naturalCompare(a.id, b.id));
 
   // Group by category, then by school
-  const CATEGORY_LABELS = { A: 'イクウェル', B: 'スイミング', C: 'ピアノ' };
+  const CATEGORY_LABELS = { A: '幼児教室', B: 'スイミング', C: 'ピアノ' };
   const groups = {};
   filteredLessons.forEach(lesson => {
     const catLetter = getCategoryLetter(lesson.name);
